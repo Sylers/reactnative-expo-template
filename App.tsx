@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
@@ -7,7 +6,12 @@ import { Asset } from "expo-asset";
 import { Roboto_700Bold } from "@expo-google-fonts/roboto";
 import { Inter_800ExtraBold } from "@expo-google-fonts/inter";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Homescreen from "./screens/Homescreen";
 // import Constants from "expo-constants";
+
+const Stack = createNativeStackNavigator();
 
 function cacheImages(images: any) {
   return images.map((image: any) => {
@@ -58,22 +62,35 @@ export default function App() {
   // console.log(Constants.expoConfig?.extra?.fact);
 
   return (
-    <View style={styles.container}>
-      <Text style={{ fontFamily: "Roboto_700Bold" }}>
-        Open up App.tsx to start working on your app!
-      </Text>
-      <Ionicons name="md-checkmark-circle" size={32} color="green" />
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerShown: false,
+          // headerStyle: {
+          //   backgroundColor: "#f4511e",
+          // },
+          // headerTintColor: "#fff",
+          // headerTitleStyle: {
+          //   fontWeight: "bold",
+          // },
+        }}
+      >
+        <Stack.Screen
+          name="Home"
+          component={Homescreen}
+          options={{
+            title: "Welcome",
+            // headerRight: () => (
+            //   <Button
+            //     onPress={() => alert("This is a button!")}
+            //     title="Info"
+            //     color="#fff"
+            //   />
+            // ),
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    fontFamily: "Inter_800ExtraBold",
-  },
-});
