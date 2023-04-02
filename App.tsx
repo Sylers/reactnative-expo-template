@@ -7,6 +7,7 @@ import { Asset } from "expo-asset";
 import { Roboto_700Bold } from "@expo-google-fonts/roboto";
 import { Inter_800ExtraBold } from "@expo-google-fonts/inter";
 import Ionicons from "@expo/vector-icons/Ionicons";
+// import Constants from "expo-constants";
 
 function cacheImages(images: any) {
   return images.map((image: any) => {
@@ -53,6 +54,8 @@ export default function App() {
   if (!appIsReady) {
     return null;
   }
+
+  // console.log(Constants.expoConfig?.extra?.fact);
 
   return (
     <View style={styles.container}>

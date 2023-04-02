@@ -1,0 +1,2 @@
+For Non-google fonts or custom fonts which is stored locally
+Must be configured in order to working
