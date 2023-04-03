@@ -5,7 +5,7 @@ import { StatusBar } from "expo-status-bar";
 const Homescreen = ({ navigation, route }: { [key: string]: any }) => {
   return (
     <View style={styles.container}>
-      <Text style={{ fontFamily: "Roboto_700Bold" }}>
+      <Text style={{ fontFamily: "Roboto_700Bold" }} className="bg-red-500">
         Open up App.tsx to start working on your app!
       </Text>
       <StatusBar style="auto" />
