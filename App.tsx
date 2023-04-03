@@ -9,6 +9,9 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Homescreen from "./screens/Homescreen";
+import Onboarding from "./screens/Onboarding";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 // import Constants from "expo-constants";
 
 const Stack = createNativeStackNavigator();
@@ -29,6 +32,7 @@ function cacheFonts(fonts: any) {
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState<boolean>(false);
+  const [firstLaunch, setFirstLaunch] = useState<boolean>(false);
   useEffect(() => {
     const prepare = async () => {
       try {
@@ -52,6 +56,16 @@ export default function App() {
         SplashScreen.hideAsync();
       }
     };
+    async function setData() {
+      const appData = await AsyncStorage.getItem("appLaunched");
+      if (appData == null) {
+        setFirstLaunch(true);
+        AsyncStorage.setItem("appLaunched", "false");
+      } else {
+        setFirstLaunch(false);
+      }
+    }
+    setData();
     prepare();
   }, []);
 
@@ -64,7 +78,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName={firstLaunch ? "Onboarding" : "Home"}
         screenOptions={{
           headerShown: false,
           // headerStyle: {
@@ -90,6 +104,7 @@ export default function App() {
             // ),
           }}
         />
+        <Stack.Screen name="Onboarding" component={Onboarding} />
       </Stack.Navigator>
     </NavigationContainer>
   );
